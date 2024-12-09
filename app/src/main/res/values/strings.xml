@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BlockchainHarpocrates</string>
+    <string name="block">#Block</string>
+    <string name="previous_hash">Previous hash</string>
+    <string name="time_stamp">TimeStamp</string>
+    <string name="block_data">Block data</string>
+    <string name="block_hash">Block hash</string>
 </resources>
