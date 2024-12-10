@@ -6,11 +6,11 @@ import java.security.NoSuchAlgorithmException
 data class Block(
     val index: Int,
     val timeStamp: Long,
-    val previousHash: String,
+    val previousHash: String? = null,
     val data: String
 ){
     private var nonce: Int
-    private var hash: String?
+    var hash: String?
 
     init {
         nonce = 0

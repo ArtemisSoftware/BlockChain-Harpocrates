@@ -14,10 +14,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.artemissoftware.blockchainharpocrates.R
+import com.artemissoftware.blockchainharpocrates.models.Block
 import com.artemissoftware.blockchainharpocrates.ui.theme.BlockchainHarpocratesTheme
+import java.util.Date
 
 @Composable
-fun ChainCard(
+fun BlockCard(
+    block: Block,
     modifier: Modifier = Modifier
 ) {
 
@@ -29,29 +32,29 @@ fun ChainCard(
                 .padding(12.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Text(stringResource(id = R.string.block))
+            Text(stringResource(id = R.string.block, block.index))
 
             Detail(
                 title = R.string.previous_hash,
-                description = "",
+                description = block.previousHash ?: "",
                 modifier = Modifier.fillMaxWidth()
             )
 
             Detail(
                 title = R.string.time_stamp,
-                description = "",
+                description = String.format(Date(block.timeStamp).toString()),
                 modifier = Modifier.fillMaxWidth()
             )
 
             Detail(
                 title = R.string.block_data,
-                description = "",
+                description = block.data,
                 modifier = Modifier.fillMaxWidth()
             )
 
             Detail(
                 title = R.string.block_hash,
-                description = "",
+                description = block.hash ?: "",
                 modifier = Modifier.fillMaxWidth()
             )
         }
@@ -79,9 +82,15 @@ private fun Detail(
 
 @Preview(showBackground = true)
 @Composable
-private fun ChainCardPreview() {
+private fun CBlockCardPreview() {
     BlockchainHarpocratesTheme {
-        ChainCard(
+        BlockCard(
+            block = Block(
+                previousHash = "previousHash",
+                timeStamp = 1733828573L,
+                index = 1,
+                data = "data"
+            ),
             modifier = Modifier.fillMaxWidth()
         )
     }
