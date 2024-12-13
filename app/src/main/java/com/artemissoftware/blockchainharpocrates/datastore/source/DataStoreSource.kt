@@ -7,12 +7,14 @@ import kotlinx.coroutines.flow.Flow
 
 class DataStoreSource (private val context: Context) {
 
+    private val appContext = context.applicationContext
+
     fun getAppSettings(): Flow<AppSettingsStore> {
-        return context.appSettingsStore.data
+        return appContext.appSettingsStore.data
     }
 
     suspend fun setProofOfWork(proofOfWork: Int) {
-        context.appSettingsStore.updateData {
+        appContext.appSettingsStore.updateData {
             it.copy(proofOfWork = proofOfWork)
         }
     }

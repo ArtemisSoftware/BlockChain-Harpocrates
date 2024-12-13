@@ -1,65 +1,37 @@
 package com.artemissoftware.blockchainharpocrates.models
 
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
+import com.artemissoftware.blockchainharpocrates.util.HashUtil
 
 data class Block(
-    val index: Int,
-    val timeStamp: Long,
+    val index: Int = 0,
+    val timestamp: Long = System.currentTimeMillis(),
     val previousHash: String? = null,
     val data: String
-){
-    private var nonce: Int
-    var hash: String?
+) {
+    private var nonce: Int = 0
+    var hash: String? = null
 
     init {
-        nonce = 0
-        hash = calculateHash(this)
+        hash = HashUtil.calculate(text = str())
     }
 
-    private fun str() = index.toString() + timeStamp.toString() + previousHash + data + nonce
+    fun str(): String {
+        return (index + timestamp).toString() + previousHash + data + nonce
+    }
 
-    fun mineBlock(difficulty: Int){
-        hash?.let {
-            nonce = 0
-            while (!it.substring(0, difficulty).equals(addZeros(difficulty))){
-                ++nonce
-                hash = calculateHash(this)
-            }
+    fun mineBlock(difficulty: Int) {
+        nonce = 0
+        while (hash!!.substring(0, difficulty) != addZeros(difficulty)) {
+            nonce++
+            hash = HashUtil.calculate(text = str())
         }
     }
 
-    private fun addZeros(difficulty: Int): String{
+    private fun addZeros(difficulty: Int): String {
         val builder = StringBuilder()
-        repeat(difficulty) {
+        for (i in 0 until difficulty) {
             builder.append('0')
         }
         return builder.toString()
-    }
-
-    private companion object {
-        fun calculateHash(block: Block? = null): String?{
-            block?.let {
-
-                try{
-                    val messageDigest = MessageDigest.getInstance("SHA-256")
-                    val bytes = messageDigest.digest(it.str().toByteArray())
-                    val builder = StringBuilder()
-
-                    bytes.forEach { byte ->
-                        val hex = Integer.toHexString(0xff and byte.toInt())
-                        if(hex.length == 1){
-                            builder.append('0')
-                        }
-                        builder.append(hex)
-                    }
-                    return builder.toString()
-                } catch (ex: NoSuchAlgorithmException){
-                    return null
-                }
-            } ?: run {
-                return null
-            }
-        }
     }
 }

@@ -3,6 +3,8 @@
     <string name="block">Block #%d</string>
     <string name="previous_hash">Previous hash</string>
     <string name="time_stamp">TimeStamp</string>
-    <string name="block_data">Block data</string>
-    <string name="block_hash">Block hash</string>
+    <string name="data_message">Data/Message</string>
+    <string name="hash">Hash</string>
+    <string name="block_chain">Blockchain</string>
+    <string name="pow">Proof of work</string>
 </resources>

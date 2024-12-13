@@ -8,5 +8,5 @@ data class BlockchainState(
     val showDialog: Boolean = false,
     val isLoading: Boolean = false,
     val message: String = "",
-    val pow: Int = 0
+    val pow: String = ""
 )

@@ -13,8 +13,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.artemissoftware.blockchainharpocrates.R
 import com.artemissoftware.blockchainharpocrates.models.Block
+import com.artemissoftware.blockchainharpocrates.R
 import com.artemissoftware.blockchainharpocrates.ui.theme.BlockchainHarpocratesTheme
 import java.util.Date
 
@@ -34,26 +34,28 @@ fun BlockCard(
         ) {
             Text(stringResource(id = R.string.block, block.index))
 
-            Detail(
-                title = R.string.previous_hash,
-                description = block.previousHash ?: "",
-                modifier = Modifier.fillMaxWidth()
-            )
+            block.previousHash?.let {
+                Detail(
+                    title = R.string.previous_hash,
+                    description = it,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
 
             Detail(
                 title = R.string.time_stamp,
-                description = String.format(Date(block.timeStamp).toString()),
+                description = String.format(Date(block.timestamp).toString()),
                 modifier = Modifier.fillMaxWidth()
             )
 
             Detail(
-                title = R.string.block_data,
+                title = R.string.data_message,
                 description = block.data,
                 modifier = Modifier.fillMaxWidth()
             )
 
             Detail(
-                title = R.string.block_hash,
+                title = R.string.hash,
                 description = block.hash ?: "",
                 modifier = Modifier.fillMaxWidth()
             )
@@ -87,7 +89,7 @@ private fun CBlockCardPreview() {
         BlockCard(
             block = Block(
                 previousHash = "previousHash",
-                timeStamp = 1733828573L,
+                timestamp = 1733828573L,
                 index = 1,
                 data = "data"
             ),
