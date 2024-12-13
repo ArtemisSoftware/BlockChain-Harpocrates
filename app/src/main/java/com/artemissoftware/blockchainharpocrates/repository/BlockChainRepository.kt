@@ -3,10 +3,12 @@ package com.artemissoftware.blockchainharpocrates.repository
 import com.artemissoftware.blockchainharpocrates.datastore.source.DataStoreSource
 import com.artemissoftware.blockchainharpocrates.models.Block
 import com.artemissoftware.blockchainharpocrates.util.HashUtil
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.withContext
 
 class BlockChainRepository (
     private val dataSource: DataStoreSource
@@ -30,7 +32,7 @@ class BlockChainRepository (
         }
     }
 
-    fun updateBlockChain(message: String) {
+    suspend fun updateBlockChain(message: String) = withContext(Dispatchers.IO) {
         addBlock(message)
         if(isBlockChainValid) {
             _blockChainFlow.value = blocks.toList()

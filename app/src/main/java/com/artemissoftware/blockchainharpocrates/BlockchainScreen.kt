@@ -32,6 +32,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.artemissoftware.blockchainharpocrates.composables.BlockCard
+import com.artemissoftware.blockchainharpocrates.composables.ProofOfWorkDialog
 import com.artemissoftware.blockchainharpocrates.models.Block
 import com.artemissoftware.blockchainharpocrates.ui.theme.BlockchainHarpocratesTheme
 
